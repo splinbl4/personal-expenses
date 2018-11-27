@@ -15,13 +15,14 @@
 * if you use sqlite :
    * type `touch database/database.sqlite` to create the file
    * DB_CONNECTION=sqlite
-     DB_DATABASE=/absolute/path/to/database/database.sqlite
-* type `php artisan migrate --seed` to create and populate tables
+   * DB_DATABASE=/absolute/path/to/database/database.sqlite
 * edit *.env* for emails configuration
 * edit *.env* for limit configuration:
     * set EXPENSE_LIMIT
 * edit *.env* for scenario configuration:
     * set APP_SCENARIO:
         * adaptive_limit
-        * increase_limit    
+        * increase_limit     
+* type `php artisan migrate --seed` to create and populate tables
+  
 * optionaly type `npm install` to manage assets

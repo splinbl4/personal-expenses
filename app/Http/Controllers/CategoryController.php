@@ -23,7 +23,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         Category::create([
-            'title' => $request['name'],
+            'title' => $request['title'],
         ]);
 
         return redirect()->route('categories.index')->with('success', 'Категория успешно создана!');
@@ -43,7 +43,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $category->update([
-            'title' => $request['name'],
+            'title' => $request['title'],
         ]);
 
         return redirect()->route('categories.index')->with('success', 'Категория успешно изменена!');
