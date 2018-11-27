@@ -1,0 +1,42 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.navbar {
+  background-color: #0c64a2;
+  padding: 0.35rem 1rem;
+}
+
+.app-content {
+  flex: 1;
+}
+
+.table th, .table td {
+  padding: 0.55rem 0.75rem;
+}
+
+.form-delete {
+  display: inline-block;
+}
+.button-delete {
+  border: none;
+  background-color: transparent;
+  color: #3c8dbc;
+  outline: none;
+  cursor: pointer;
+}
+.button-delete:hover {
+  color: #72afd2;
+}
