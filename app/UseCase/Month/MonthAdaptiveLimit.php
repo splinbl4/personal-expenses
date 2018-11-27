@@ -34,7 +34,7 @@ class MonthAdaptiveLimit implements MonthService
     {
         $sum = (float)$request['sum'] + (float)$monthEdit->sum;
         if ($sum > $monthEdit->limit) {
-            $this->checkNextMonth($request, $monthEdit->sum);
+            $this->checkNextMonth($request, $monthEdit->sum, $monthEdit->limit);
         }
 
         return $monthEdit->updateSum($monthEdit, $request);
@@ -56,7 +56,7 @@ class MonthAdaptiveLimit implements MonthService
         return $month;
     }
 
-    public function checkNextMonth(array $request, $sum) :void
+    public function checkNextMonth(array $request, $sum, $limit) :void
     {
         $fields = Month::getFields($request['date']);
         $nextMonthNumber = Carbon::parse($request['date'])->startOfMonth()->addMonth()->format('m');
@@ -68,14 +68,15 @@ class MonthAdaptiveLimit implements MonthService
         if ($nextMonth) {
             $this->editNextMonth($request);
         } else {
-            $this->createNextMonth($request, $sum);
+            $this->createNextMonth($request, $sum, $limit);
         }
     }
 
-    public function createNextMonth(array $request, $sum = 0) :void
+    public function createNextMonth(array $request, $sum = 0, $limit = 0) :void
     {
-        $overLimit = (float)$request['sum'] + (float)$sum - (float)config('expense.limit');
-        $request['limit'] = (float)config('expense.limit') - (float)$overLimit;
+        $limit = $limit == 0 ? (float)config('expense.limit') : $limit;
+        $overLimit = (float)$request['sum'] + (float)$sum - $limit;
+        $request['limit'] = $limit - (float)$overLimit;
         $request['sum'] = 0;
 
         $fields = Month::getFields($request['date']);

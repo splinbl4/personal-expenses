@@ -4,12 +4,14 @@ namespace App\UseCase\Month;
 
 use App\Http\Requests\Month\CurrentLimitRequest;
 use App\Month;
+use App\UseCase\Date\Date;
 
 class MonthIncreaseLimit implements MonthService
 {
     public function create(array $request) :Month
     {
         $fields = Month::getFields($request['date']);
+        $request['limit'] = config('expense.limit');
 
         $monthEdit = Month::where('month_number', $fields['month_number'])
             ->where('year', $fields['year'])->first();
@@ -17,10 +19,10 @@ class MonthIncreaseLimit implements MonthService
         if ($monthEdit) {
             return $this->updateSum($monthEdit, $request);
         }
-
+        $request['limit'] = config('expense.limit');
         if ($request['sum'] > config('expense.limit')) {
             $request['sum'] = 0;
-            $request['limit'] = config('expense.limit');
+
             Month::add($request);
             throw new \DomainException('Не удалось добавить расход. Увеличьте предельную сумму расхода за ' . Date::getMonthName($fields['month_number']));
         }
