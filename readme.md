@@ -1,6 +1,6 @@
 ## Personal expenses
 
-### Installation ###
+### Installation ### 
 * type `git clone https://github.com/splinbl4/personal-expenses.git` to clone the repository 
 * type `cd projectname`
 * type `composer install`
